@@ -5,6 +5,7 @@ import BerserkerIcon from "./assets/berserk-icon.png";
 import BossDamageIcon from "./assets/boss-damage-icon.png";
 import DragonKeyIcon from "./assets/dragon-key-icon.png";
 import SkillDamageIcon from "./assets/skill-damage-icon.png";
+import "./berserker-awakening-calculator.css";
 
 type Category = {
   currentLevel: string;
@@ -91,49 +92,31 @@ export default function BerserkerAwakeningCalculator() {
     };
 
     return (
-      <div style={{ marginBottom: "20px" }}>
-        <label
-          style={{
-            fontWeight: "bold",
-            fontSize: "16px",
-            display: "block",
-            marginBottom: "8px",
-          }}
-        >
+      <div className="rank-buttons-container">
+        <label className="select-awakening-status">
           Select your awakening status:
         </label>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
+        <div className="rank-buttons-list">
           {rankProgression.map((rank, index) => (
             <button
               key={index}
               onClick={() => handleRankClick(rank.maxLevel)}
-              style={{
-                padding: "0.5rem 1rem",
-                border: "1px solid orange",
-                borderRadius: "8px",
-                backgroundColor: "rgb(31, 41, 55)",
-                color: "white",
-                cursor: "pointer",
-                display: "flex",
-                gap: "4px",
-              }}
+              className="rank-button"
             >
               <span
                 style={{
                   color: rank.fromColor,
-                  fontWeight: "bold",
-                  fontSize: "20px",
                 }}
+                className="rank-from-to"
               >
                 {rank.from}
               </span>
-              <span style={{ fontWeight: "400", fontSize: "20px" }}>⇒</span>
+              <span className="arrow">⇒</span>
               <span
                 style={{
                   color: rank.toColor,
-                  fontWeight: "bold",
-                  fontSize: "20px",
                 }}
+                className="rank-from-to"
               >
                 {rank.to}
               </span>
@@ -144,7 +127,7 @@ export default function BerserkerAwakeningCalculator() {
     );
   };
 
-  const [valuePerKey, setValuePerKey] = useState<number>(51200);
+  const [valuePerKey, setValuePerKey] = useState<string>("");
 
   const initialCategories = categoryLabels.map(() => ({
     currentLevel: "1",
@@ -174,13 +157,13 @@ export default function BerserkerAwakeningCalculator() {
       if (
         !currentLevel ||
         !maxLevel ||
-        isNaN(valuePerKey) ||
-        valuePerKey <= 0
+        isNaN(Number(valuePerKey)) ||
+        Number(valuePerKey) <= 0
       ) {
         return <span>Please enter valid numbers.</span>;
       }
 
-      const start = Number(currentLevel + 1) * 100 + 100;
+      const start = (Number(currentLevel) + 1) * 100 + 100;
       const end = Number(maxLevel) * 100 + 100;
 
       if (start >= end) {
@@ -192,22 +175,22 @@ export default function BerserkerAwakeningCalculator() {
         totalSum += i;
       }
 
-      const numberOfKeys = Math.floor(totalSum / valuePerKey);
+      const numberOfKeys = Math.floor(totalSum / Number(valuePerKey));
       total += numberOfKeys;
 
       return (
-        <div style={styles.resultContainer}>
-          <span style={styles.resultText}>
+        <div className="resultContainer">
+          <span className="resultText">
             Awakening stone needed: {totalSum.toLocaleString()}
             <img
               src={AwakeningStoneIcon}
               alt="Awakening Stone"
-              style={styles.icon}
+              className="icon"
             />
           </span>
-          <span style={styles.resultText}>
+          <span className="resultText">
             Dragon Keys Needed: {numberOfKeys}
-            <img src={DragonKeyIcon} alt="Dragon Key" style={styles.icon} />
+            <img src={DragonKeyIcon} alt="Dragon Key" className="icon" />
           </span>
         </div>
       );
@@ -229,41 +212,46 @@ export default function BerserkerAwakeningCalculator() {
   };
 
   return (
-    <div style={styles.container}>
-      <h1 style={{ color: "red" }}>Dragon Key Calculator</h1>
-      <p>( made by Tudique26 from the KNIGHTSXORDER guild on Trakan server )</p>
-      <div style={styles.topRow}>
-        <label style={styles.topLabel}>Awakening stone per key:</label>
-        <img
-          src={AwakeningStoneIcon}
-          alt="Awakening Stone"
-          style={styles.awakeningImage}
-        />
-        <input
-          type="number"
-          value={valuePerKey}
-          onChange={(e) => setValuePerKey(Number(e.target.value))}
-          style={styles.input}
-        />
-
-        <button onClick={calculateAllKeys} style={styles.buttonInline}>
-          Calculate Keys
-        </button>
-        <button onClick={clearAll} style={styles.clearButton}>
-          Clear
-        </button>
+    <div className="container">
+      <h1 className="container-title">Dragon Key Calculator</h1>
+      <span className="madeBy">
+        ( made by Tudique26 from the KNIGHTSXORDER guild on Trakan server )
+      </span>
+      <div className="topRow">
+        <label className="topLabel">Awakening stone per key:</label>
+        <div className="img-input-container">
+          <img
+            src={AwakeningStoneIcon}
+            alt="Awakening Stone"
+            className="awakeningImage"
+          />
+          <input
+            type="number"
+            value={valuePerKey}
+            onChange={(e) => setValuePerKey(e.target.value)}
+            className="input"
+          />
+        </div>
+        <div className="buttons-container">
+          <button onClick={calculateAllKeys} className="buttonInline">
+            Calculate Keys
+          </button>
+          <button onClick={clearAll} className="clearButton">
+            Clear
+          </button>
+        </div>
       </div>
       <RankButtons setCategories={setCategories} />
 
       {categoryLabels.map((label, index) => (
-        <div key={index} style={styles.form}>
-          <div style={styles.row}>
+        <div key={index} className="form">
+          <div className="row">
             <img
               src={categoryImages[index]}
               alt={`${label} icon`}
-              style={styles.categoryImage}
+              className="categoryImage"
             />
-            <strong style={styles.label}>{label}:</strong>
+            <strong className="label">{label}:</strong>
             <input
               type="number"
               min={1}
@@ -284,7 +272,7 @@ export default function BerserkerAwakeningCalculator() {
                   handleInputChange(index, "currentLevel", clamped);
                 }
               }}
-              style={styles.inlineInput}
+              className="inlineInput"
             />
             <input
               type="number"
@@ -306,156 +294,23 @@ export default function BerserkerAwakeningCalculator() {
                   handleInputChange(index, "maxLevel", clamped);
                 }
               }}
-              style={styles.inlineInput}
+              className="inlineInput"
             />
           </div>
-          <div style={styles.outputRow}>
-            <span style={styles.outputText}>
-              {categories[index].result || ""}
-            </span>
+          <div className="outputRow">
+            <span className="outputText">{categories[index].result || ""}</span>
           </div>
         </div>
       ))}
 
       {totalKeys !== null && (
-        <div style={styles.totalRow}>
+        <div className="totalRow">
           <strong>
             Total Dragon Keys Needed: {totalKeys.toLocaleString()}
           </strong>
-          <img src={DragonKeyIcon} alt="Dragon Key" style={styles.icon} />
+          <img src={DragonKeyIcon} alt="Dragon Key" className="icon" />
         </div>
       )}
     </div>
   );
 }
-
-const styles: { [key: string]: React.CSSProperties } = {
-  container: {
-    width: "99vw",
-    height: "98vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "20px",
-    borderRadius: "8px",
-    backgroundColor: "#000",
-    color: "#fff",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-    fontFamily: "Arial, sans-serif",
-  },
-  topRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: "5px",
-    marginBottom: "15px",
-    flexWrap: "wrap",
-  },
-  topLabel: {
-    fontSize: "16px",
-    minWidth: "120px",
-    color: "#fff",
-  },
-  awakeningImage: {
-    width: "30px",
-    height: "30px",
-  },
-  input: {
-    flex: "1",
-    padding: "10px",
-    fontSize: "16px",
-    borderRadius: "4px",
-    border: "1px solid #444",
-    minWidth: "100px",
-    backgroundColor: "#333",
-    color: "#fff",
-  },
-  buttonInline: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    backgroundColor: "#4CAF50",
-    color: "white",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-    whiteSpace: "nowrap",
-  },
-  clearButton: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    backgroundColor: "#f44336",
-    color: "white",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-    whiteSpace: "nowrap",
-  },
-  form: {
-    borderTop: "1px solid #444",
-    paddingTop: "10px",
-    paddingBottom: "10px",
-  },
-  row: {
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-  },
-  label: {
-    width: "150px",
-    fontSize: "16px",
-    color: "#FFDB58",
-  },
-  inlineInput: {
-    flex: "1",
-    padding: "10px",
-    fontSize: "16px",
-    borderRadius: "4px",
-    border: "1px solid #444",
-    backgroundColor: "#333",
-    color: "#fff",
-    minWidth: "200px",
-  },
-  outputRow: {
-    display: "flex",
-    justifyContent: "space-between",
-    gap: "40px",
-    fontSize: "16px",
-    fontWeight: "bold",
-    color: "#fff",
-    textAlign: "left",
-    paddingTop: "5px",
-  },
-  outputText: {
-    flex: 1,
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-  },
-  totalRow: {
-    fontSize: "28px",
-    textAlign: "center",
-    color: "yellow",
-    display: "flex",
-    alignItems: "center",
-    gap: "5px",
-  },
-  categoryImage: {
-    width: "40px",
-    height: "40px",
-    marginRight: "10px",
-  },
-  resultContainer: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-  },
-  resultText: {
-    display: "flex",
-    alignItems: "center",
-    gap: "5px",
-  },
-  icon: {
-    width: "20px",
-  },
-};
