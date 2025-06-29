@@ -305,9 +305,7 @@ export default function BerserkerAwakeningCalculator() {
 
       {totalKeys !== null && (
         <div className="totalRow">
-          <strong>
-            Total Dragon Keys Needed: {totalKeys.toLocaleString()}
-          </strong>
+          <strong>Total Dragon Keys : {totalKeys.toLocaleString()}</strong>
           <img src={DragonKeyIcon} alt="Dragon Key" className="icon" />
         </div>
       )}
