@@ -344,6 +344,26 @@ export default function BerserkerAwakeningCalculator() {
           <strong>Search "KNIGHTSXORDER" in-game to apply!</strong>
         </p>
       </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <iframe
+          width={500}
+          height={300}
+          className="youtube-frame"
+          src="https://www.youtube.com/embed/-w2_Gwc_1gk?si=gAAzGG0nwZdPjl4v"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
+      </div>
     </div>
   );
 }

@@ -268,3 +268,12 @@
     width: 100%;
   }
 }
+
+.youtube-frame {
+  min-width: 300px;
+  min-height: 200px;
+
+  @media (max-width: 1024px) {
+    width: 90%;
+  }
+}
