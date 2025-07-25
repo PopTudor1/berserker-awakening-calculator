@@ -215,7 +215,7 @@ export default function BerserkerAwakeningCalculator() {
     <div className="container">
       <h1 className="container-title">Dragon Key Calculator</h1>
       <span className="madeBy">
-        ( made by Tudique26 from the KNIGHTSXORDER guild on Trakan server )
+        ( made by Tudique26 from the KNIGHTSXORDER guild on Trakan US server )
       </span>
       <div className="topRow">
         <label className="topLabel">Awakening stone per key:</label>
@@ -309,6 +309,41 @@ export default function BerserkerAwakeningCalculator() {
           <img src={DragonKeyIcon} alt="Dragon Key" className="icon" />
         </div>
       )}
+
+      <div
+        style={{
+          color: "white",
+          padding: "16px",
+        }}
+      >
+        <h2
+          style={{
+            color: "green",
+          }}
+        >
+          ⚔️ Join KNIGHTSXORDER – Trakan US Server! ⚔️
+        </h2>
+        <p>We’re an active, supportive guild looking for committed players!</p>
+        <ul>
+          <li>✅ Daily Attendance</li>
+          <li>✅ Guild Missions & Conquest</li>
+          <li>
+            💪 Recommended Awakening: <strong>S+</strong>
+          </li>
+          <li>🕒 Inactivity = Kick (6 days with Discord, 3 days no Discord)</li>
+        </ul>
+        <p>
+          Join us, contribute, grow stronger—and enjoy the game with a great
+          team!
+        </p>
+        <p
+          style={{
+            color: "yellow",
+          }}
+        >
+          <strong>Search "KNIGHTSXORDER" in-game to apply!</strong>
+        </p>
+      </div>
     </div>
   );
 }
