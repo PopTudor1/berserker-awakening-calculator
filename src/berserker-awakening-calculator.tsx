@@ -310,7 +310,7 @@ export default function BerserkerAwakeningCalculator() {
         </div>
       )}
 
-      <div
+      {/* <div
         style={{
           color: "white",
           padding: "16px",
@@ -363,7 +363,7 @@ export default function BerserkerAwakeningCalculator() {
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
         ></iframe>
-      </div>
+      </div> */}
     </div>
   );
 }
